@@ -57,7 +57,7 @@ public class InventoryNBTSer {
 
 	public static void getKit(Player p, File folder, String name, boolean b) throws IOException {
 		if(!new File(folder+"/kits/"+name.toLowerCase()+".kit").exists()) {
-			p.sendMessage("§4Такого набора нет!");
+			p.sendMessage("§4Такого набора не существует!");
 			return;
 		}
 		NBTTagCompound NBT = fromNBTTagCompound(folder+"/kits/"+name.toLowerCase()+".kit");
@@ -72,7 +72,6 @@ public class InventoryNBTSer {
 				Time t = new Time(time-calc);
 				if(calc<time) {
 					p.sendMessage("§4Данный набор будет вам доступен только через: §c"+t.getFormat());
-					p.playSound(p.getLocation(), Sound.ANVIL_BREAK, 1, 0);
 					return;
 				}
 			}
