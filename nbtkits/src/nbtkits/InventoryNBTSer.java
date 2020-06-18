@@ -58,7 +58,6 @@ public class InventoryNBTSer {
 	public static void getKit(Player p, File folder, String name, boolean b) throws IOException {
 		if(!new File(folder+"/kits/"+name.toLowerCase()+".kit").exists()) {
 			p.sendMessage("§4Такого набора нет!");
-			p.playSound(p.getLocation(), Sound.EXPLODE, 1, 2);
 			return;
 		}
 		NBTTagCompound NBT = fromNBTTagCompound(folder+"/kits/"+name.toLowerCase()+".kit");
@@ -72,7 +71,7 @@ public class InventoryNBTSer {
 				long  calc = (System.currentTimeMillis()-tpl)/1000;
 				Time t = new Time(time-calc);
 				if(calc<time) {
-					p.sendMessage("§4Вы не можете получить этот набор, раньше чем через §c"+t.getFormat());
+					p.sendMessage("§4Данный набор будет вам доступен только через: §c"+t.getFormat());
 					p.playSound(p.getLocation(), Sound.ANVIL_BREAK, 1, 0);
 					return;
 				}
@@ -88,8 +87,7 @@ public class InventoryNBTSer {
 				}
 			}
 		}
-		p.sendMessage("§6Получен набор §c"+name.toLowerCase());
-		p.playSound(p.getLocation(), Sound.ANVIL_LAND, 1, 0);
+		p.sendMessage("§6Вы получили набор: §2"+name.toLowerCase());
 		new File(folder+"/players/").mkdirs();
 		NBTTagCompound temp = new NBTTagCompound();
 		temp.setLong("time", System.currentTimeMillis());
@@ -104,8 +102,7 @@ public class InventoryNBTSer {
 		NBT.setLong("time", time);
 		try {
 			NBTCompressedStreamTools.a(NBT, new FileOutputStream(folder+"/kits/"+name.toLowerCase()+".kit"));
-			p.sendMessage("§2Набор сохранен.");
-			p.playSound(p.getLocation(), Sound.ANVIL_BREAK, 1, 1);
+			p.sendMessage("§2Набор успешно сохранен.");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -113,16 +110,14 @@ public class InventoryNBTSer {
 
 	public static void setTime(Player p, File folder, String name, long time) {
 		if(!new File(folder+"/kits/"+name.toLowerCase()+".kit").exists()) {
-			p.sendMessage("§4Такого набора нет!");
-			p.playSound(p.getLocation(), Sound.EXPLODE, 1, 2);
+			p.sendMessage("§4Такого набора не существует!");
 			return;
 		}
 		NBTTagCompound NBT = fromNBTTagCompound(folder+"/kits/"+name.toLowerCase()+".kit");
 		NBT.setLong("time", time);
 		try {
 			NBTCompressedStreamTools.a(NBT, new FileOutputStream(folder+"/kits/"+name.toLowerCase()+".kit"));
-			p.sendMessage("§2Время изменено.");
-			p.playSound(p.getLocation(), Sound.ANVIL_BREAK, 1, 1);
+			p.sendMessage("§2Время успешно изменено.");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -132,11 +127,9 @@ public class InventoryNBTSer {
 		File k = new File(folder+"/kits/"+name.toLowerCase()+".kit");
 		if(k.exists()) {
 			k.delete();
-			p.sendMessage("§2Набор удален.");
-			p.playSound(p.getLocation(), Sound.ANVIL_BREAK, 1, 1);
+			p.sendMessage("§2Набор успешно удален.");
 		} else {
-			p.sendMessage("§4Такого набора нет!");
-			p.playSound(p.getLocation(), Sound.EXPLODE, 1, 0);
+			p.sendMessage("§4Такого набора не существует!");
 		}
 	}	
 
