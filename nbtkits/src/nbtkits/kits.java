@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -54,7 +53,6 @@ public class kits extends JavaPlugin {
 						Player pl = Bukkit.getPlayer(args[1]);
 						if(pl==null) {
 							sender.sendMessage("§4Игрок не найден");
-							((Player) sender).playSound(((Entity) sender).getLocation(), Sound.EXPLODE, 1, 2);
 							return true;
 						}
 						InventoryNBTSer.getKit(pl, folder, args[0], true);
@@ -67,8 +65,6 @@ public class kits extends JavaPlugin {
 						return true;
 					} else {
 						sender.sendMessage("§4У вас нет разрешения на этот набор!");
-						Player p = (Player) sender;
-						p.playSound((p).getLocation(), Sound.EXPLODE, 1, 2);
 						return true;
 					}
 				}
@@ -80,8 +76,6 @@ public class kits extends JavaPlugin {
 						}
 					}
 					sender.sendMessage("§6Наборы §f"+l.toString().substring(1, l.toString().length()-1).replace(",", ""));
-					Player p = (Player) sender;
-					p.playSound((p).getLocation(), Sound.CHEST_OPEN, 1, 1);
 					return true;
 				}
 			} catch (IOException e) {
@@ -96,8 +90,6 @@ public class kits extends JavaPlugin {
 				}
 			}
 			sender.sendMessage("§6Наборы §f"+l.toString().substring(1, l.toString().length()-1).replace(",", ""));
-			Player p = (Player) sender;
-			p.playSound((p).getLocation(), Sound.CHEST_OPEN, 1.0F, 1.0F);
 			return true;
 		}
 		return false;
